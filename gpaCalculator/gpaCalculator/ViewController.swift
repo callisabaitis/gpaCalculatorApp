@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         
         let cs1110 = Class(name: "CS 1110", credits: 4, grade: "A", semester: "Fall 2018")
         let psych = Class(name: "Psych 1101", credits: 3, grade: "A", semester: "Fall 2018")
+        let french1220 = Class(name: "French 1220", credits: 4, grade: "A-", semester: "Fall 2018")
         classes = [cs1110, psych]
         //gpa = fixGPA(classes: classes)
         
