@@ -12,6 +12,7 @@
 		6F1C61CB23BACDD700F316A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F1C61CA23BACDD700F316A6 /* Assets.xcassets */; };
 		6F1C61CE23BACDD700F316A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F1C61CC23BACDD700F316A6 /* LaunchScreen.storyboard */; };
 		6F1C61D623BACFAD00F316A6 /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1C61D523BACFAD00F316A6 /* Class.swift */; };
+		6F83219523BC1E08003140CC /* ClassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F83219423BC1E07003140CC /* ClassTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		6F1C61CD23BACDD700F316A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F1C61CF23BACDD700F316A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F1C61D523BACFAD00F316A6 /* Class.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		6F83219423BC1E07003140CC /* ClassTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				6F1C61C123BACDD500F316A6 /* AppDelegate.swift */,
 				6F1C61C523BACDD500F316A6 /* ViewController.swift */,
+				6F83219423BC1E07003140CC /* ClassTableViewCell.swift */,
 				6F1C61D523BACFAD00F316A6 /* Class.swift */,
 				6F1C61CA23BACDD700F316A6 /* Assets.xcassets */,
 				6F1C61CC23BACDD700F316A6 /* LaunchScreen.storyboard */,
@@ -134,6 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F83219523BC1E08003140CC /* ClassTableViewCell.swift in Sources */,
 				6F1C61D623BACFAD00F316A6 /* Class.swift in Sources */,
 				6F1C61C623BACDD500F316A6 /* ViewController.swift in Sources */,
 				6F1C61C223BACDD500F316A6 /* AppDelegate.swift in Sources */,

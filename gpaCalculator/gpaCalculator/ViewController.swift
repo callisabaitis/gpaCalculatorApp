@@ -12,20 +12,25 @@ class ViewController: UIViewController {
     
     let padding: CGFloat = 8
     let border: CGFloat = 4
-    var classes: [Class] = []
+    var classes: [Class]!
     var gpa: CGFloat!
+    let reuseIdentifier = "gpaCellReuse"
+    let cellHeight: CGFloat = 100
     
     var addButton: UIButton!
     var currentGPALabel: UILabel!
     var currentGPANumber: UILabel!
+    var classesListLabel: UILabel!
+    var classesTable: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         title = "GPA Calculator"
         
-        let class1 = Class(name: "CS 1110")
-        classes = [class1]
+        let cs1110 = Class(name: "CS 1110", credits: 4, grade: "A", semester: "Fall 2018")
+        let psych = Class(name: "Psych 1101", credits: 3, grade: "A", semester: "Fall 2018")
+        classes = [cs1110, psych]
         //gpa = fixGPA(classes: classes)
         
         addButton = UIButton()
@@ -49,6 +54,19 @@ class ViewController: UIViewController {
         currentGPANumber.textColor = .black
         currentGPANumber.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(currentGPANumber)
+        
+        classesListLabel = UILabel()
+        classesListLabel.text = "Current Classes:"
+        classesListLabel.textColor = .black
+        classesListLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(classesListLabel)
+        
+        classesTable = UITableView()
+        classesTable.dataSource = self
+        //classesTable.delegate = self
+        classesTable.translatesAutoresizingMaskIntoConstraints = false
+        classesTable.register(ClassTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        view.addSubview(classesTable)
         
         setupContraints()
     }
@@ -74,6 +92,17 @@ class ViewController: UIViewController {
             currentGPANumber.heightAnchor.constraint(equalToConstant: 50),
             currentGPANumber.bottomAnchor.constraint(equalTo: addButton.bottomAnchor, constant: padding+50)
         ])
+        NSLayoutConstraint.activate([
+            classesListLabel.topAnchor.constraint(equalTo: currentGPALabel.bottomAnchor, constant: padding),
+            classesListLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 3*padding),
+            classesListLabel.bottomAnchor.constraint(equalTo: currentGPALabel.bottomAnchor, constant: 2*padding+50)
+        ])
+        NSLayoutConstraint.activate([
+            classesTable.topAnchor.constraint(equalTo: classesListLabel.bottomAnchor, constant: padding),
+            classesTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            classesTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+            classesTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding)
+        ])
     }
     
 //    func fixGPA(classes: ([Class])) -> CGFloat) {
@@ -84,3 +113,27 @@ class ViewController: UIViewController {
 
 }
 
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return classes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = classesTable.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ClassTableViewCell
+        let class1 = classes[indexPath.row]
+        cell.configure(for: class1)
+        cell.selectionStyle = .none
+        return cell
+    }
+}
+
+//extension ViewController: UITableViewDelegate {
+//    func classesTable(_ classesTable: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return cellHeight
+//    }
+//
+//    func classesTable(_ classesTable: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let class1 = classes[indexPath.row]
+//        let cell = classesTable.cellForRow(at: indexPath) as! ClassTableViewCell
+//    }
+//}

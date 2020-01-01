@@ -11,8 +11,14 @@ import UIKit
 
 class Class {
     var name: String
+    var credits: Int
+    var grade: String
+    var semesterTaken: String
     
-    init(name: String) {
+    init(name: String, credits: Int, grade: String, semester: String) {
         self.name = name
+        self.credits = credits
+        self.grade = grade
+        self.semesterTaken = semester
     }
 }
