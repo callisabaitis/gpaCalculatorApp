@@ -27,6 +27,7 @@ class AddClassViewController: UIViewController {
     
     let horizontalPadding: CGFloat = 10
     let verticalPadding: CGFloat = 20
+    let border: CGFloat = 2
     //weak var delegate: AddClassViewControlllerDelegate?
 
     override func viewDidLoad() {
@@ -110,6 +111,8 @@ class AddClassViewController: UIViewController {
         addButton.setTitleColor(.darkGray, for: .normal)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
+        addButton.layer.borderWidth = border
+        addButton.layer.cornerRadius = 10;
         view.addSubview(addButton)
         
         setupConstraints()
