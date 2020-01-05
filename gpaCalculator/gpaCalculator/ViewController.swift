@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     let padding: CGFloat = 8
     let border: CGFloat = 4
-    var classes: [Class]!
+    var classes: [Classes]!
     var gpa: CGFloat!
     let reuseIdentifier = "gpaCellReuse"
     let cellHeight: CGFloat = 100
@@ -28,10 +28,10 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         title = "GPA Calculator"
         
-        let cs1110 = Class(name: "CS 1110", credits: 4, grade: "A", semester: "Fall 2018")
-        let psych = Class(name: "Psych 1101", credits: 3, grade: "A", semester: "Fall 2018")
-        let french1220 = Class(name: "French 1220", credits: 4, grade: "A-", semester: "Fall 2018")
-        classes = [cs1110, psych]
+        let cs1110 = Classes(name: "CS 1110", credits: 4, grade: "A", semester: "Fall 2018")
+        let psych = Classes(name: "Psych 1101", credits: 3, grade: "A", semester: "Fall 2018")
+        let french1220 = Classes(name: "French 1220", credits: 4, grade: "A-", semester: "Fall 2018")
+        classes = [cs1110, psych, french1220]
         //gpa = fixGPA(classes: classes)
         
         addButton = UIButton()
@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.layer.borderWidth = border
         addButton.layer.cornerRadius = 10;
+        addButton.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
         view.addSubview(addButton)
         
         currentGPALabel = UILabel()
@@ -108,9 +109,16 @@ class ViewController: UIViewController {
     
 //    func fixGPA(classes: ([Class])) -> CGFloat) {
 //        var sumCredits = 0
-//        var sum
+//        var sumClass = 0
+//        for (Class x :
 //        return 3
 //    }
+    
+    @objc func addButtonAction() {
+        let viewContrtoller = AddClassViewController()
+        //viewContrtoller.delegate = self
+        present(viewContrtoller, animated: true, completion: nil)
+    }
 
 }
 
@@ -128,13 +136,19 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-//extension ViewController: UITableViewDelegate {
-//    func classesTable(_ classesTable: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return cellHeight
+//extension ViewController: UITableViewDelegateFlowLayout {
+//    func classesTable(_ classesTable: UITableView, layout tableViewLayout: UITableView, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let size = ()
 //    }
-//
+//}
+
+extension ViewController: UITableViewDelegate {
+    func classesTable(_ classesTable: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeight
+    }
+
 //    func classesTable(_ classesTable: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let class1 = classes[indexPath.row]
 //        let cell = classesTable.cellForRow(at: indexPath) as! ClassTableViewCell
 //    }
-//}
+}

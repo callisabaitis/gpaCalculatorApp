@@ -75,7 +75,7 @@ class ClassTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(for class1: Class) {
+    func configure(for class1: Classes) {
         nameLabel.text = class1.name
         creditsLabel.text = "Credits: " + String(class1.credits)
         gradeLabel.text = "Grade: " + class1.grade
