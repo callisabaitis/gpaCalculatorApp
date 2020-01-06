@@ -13,15 +13,16 @@ class ViewController: UIViewController {
     let padding: CGFloat = 8
     let border: CGFloat = 4
     var classes: [Classes]!
-    var gpa: CGFloat!
+    var gpa: String!
     let reuseIdentifier = "gpaCellReuse"
-    let cellHeight: CGFloat = 100
+    let cellHeight: CGFloat = 50
     
     var addButton: UIButton!
     var currentGPALabel: UILabel!
     var currentGPANumber: UILabel!
     var classesListLabel: UILabel!
     var classesTable: UITableView!
+    var refreshButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +51,10 @@ class ViewController: UIViewController {
         currentGPALabel.textAlignment = .right
         view.addSubview(currentGPALabel)
         
+        fixGPA()
         currentGPANumber = UILabel()
-        //currentGPANumber.text = gpa.description
-        currentGPANumber.text = "3.0"
+        currentGPANumber.text = gpa
+        //currentGPANumber.text = String(gpa)
         currentGPANumber.textColor = .black
         currentGPANumber.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(currentGPANumber)
@@ -63,9 +65,18 @@ class ViewController: UIViewController {
         classesListLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(classesListLabel)
         
+        refreshButton = UIButton()
+        refreshButton.setTitle("Refresh GPA", for: .normal)
+        refreshButton.setTitleColor(.black, for: .normal)
+        refreshButton.translatesAutoresizingMaskIntoConstraints = false
+        refreshButton.layer.borderWidth = border
+        refreshButton.layer.cornerRadius = 10;
+        refreshButton.addTarget(self, action: #selector(fixGPA), for: .touchUpInside)
+        view.addSubview(refreshButton)
+        
         classesTable = UITableView()
         classesTable.dataSource = self
-        //classesTable.delegate = self
+        classesTable.delegate = self
         classesTable.translatesAutoresizingMaskIntoConstraints = false
         classesTable.register(ClassTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         view.addSubview(classesTable)
@@ -107,12 +118,20 @@ class ViewController: UIViewController {
         ])
     }
     
-//    func fixGPA(classes: ([Class])) -> CGFloat) {
-//        var sumCredits = 0
-//        var sumClass = 0
-//        for (Class x :
-//        return 3
-//    }
+    @objc func fixGPA() {
+        var sumGradePoints: CGFloat = 0
+        var sumCredits: CGFloat = 0
+        for x in classes {
+            sumGradePoints = sumGradePoints + x.gradeToInt(grade: x.grade, credits: x.credits)
+            sumCredits = sumCredits + CGFloat(x.credits)
+        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        let value = formatter.string(from: (sumGradePoints/sumCredits) as NSNumber)!
+        gpa = value
+        
+    }
     
     @objc func addButtonAction() {
         let viewContrtoller = AddClassViewController()
@@ -131,7 +150,7 @@ extension ViewController: UITableViewDataSource {
         let cell = classesTable.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ClassTableViewCell
         let class1 = classes[indexPath.row]
         cell.configure(for: class1)
-        cell.selectionStyle = .none
+        //cell.selectionStyle = .none
         return cell
     }
 }
@@ -143,12 +162,13 @@ extension ViewController: UITableViewDataSource {
 //}
 
 extension ViewController: UITableViewDelegate {
-    func classesTable(_ classesTable: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
     }
 
-//    func classesTable(_ classesTable: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let class1 = classes[indexPath.row]
-//        let cell = classesTable.cellForRow(at: indexPath) as! ClassTableViewCell
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = IndClassViewController(classes: classes[indexPath.row])
+        //viewController.delegate = self
+        present(viewController, animated: true, completion: nil)
+    }
 }
