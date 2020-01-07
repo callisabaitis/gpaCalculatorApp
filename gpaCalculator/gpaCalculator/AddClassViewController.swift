@@ -176,6 +176,10 @@ class AddClassViewController: UIViewController {
     @objc func addButtonPressed() {
 //        NetworkManager.createClass(name: nameTextField.text!, completion: { (classes) in
         //self.delegate?.willBeDismissed()
+        let credits1 : String = creditsTextField.text!
+        let credits2 : Int? = Int(credits1)
+        let class1 = Classes(name: nameTextField.text!, credits: credits2!, grade: gradeTextField.text!, semester: semesterTakenTextField.text!)
+        //ViewController.addClass(Classes: class1)
         self.dismiss(animated: true)
     
 //        })

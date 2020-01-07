@@ -138,6 +138,10 @@ class ViewController: UIViewController {
         //viewContrtoller.delegate = self
         present(viewContrtoller, animated: true, completion: nil)
     }
+    
+    func addClass(class1: Classes) {
+        classes[classes.count] = class1
+    }
 
 }
 
