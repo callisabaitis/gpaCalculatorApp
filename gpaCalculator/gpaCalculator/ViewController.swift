@@ -56,9 +56,9 @@ class ViewController: UIViewController {
         currentGPALabel.textAlignment = .right
         view.addSubview(currentGPALabel)
         
-        fixGPA()
         currentGPANumber = UILabel()
-        currentGPANumber.text = gpa
+        fixGPA()
+        //currentGPANumber.text = gpa
         //currentGPANumber.text = String(gpa)
         currentGPANumber.textColor = .black
         currentGPANumber.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         formatter.maximumFractionDigits = 2
         let value = formatter.string(from: (sumGradePoints/sumCredits) as NSNumber)!
         gpa = value
-        
+        currentGPANumber.text = gpa
     }
     
     @objc func addButtonAction() {
@@ -182,10 +182,12 @@ extension ViewController: ChangeButtonPressed {
     func deleteButtonPressed(to newClass: Classes) {
         classes = classes.filter({$0.name != newClass.name})
         classesTable.reloadData()
+        fixGPA()
     }
     
     func addButtonPressed(to newClass: Classes) {
         classes.append(newClass)
         classesTable.reloadData()
+        fixGPA()
     }
 }
