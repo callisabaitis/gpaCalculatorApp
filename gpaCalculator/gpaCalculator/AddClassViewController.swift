@@ -8,9 +8,10 @@
 
 import UIKit
 
-protocol AddClassViewControllerDelegate: class {
-    func willBeDismissed()
-}
+//protocol AddClassViewControllerDelegate: class {
+//    func willBeDismissed()
+//    //func
+//}
 
 class AddClassViewController: UIViewController {
     
@@ -28,7 +29,7 @@ class AddClassViewController: UIViewController {
     let horizontalPadding: CGFloat = 10
     let verticalPadding: CGFloat = 20
     let border: CGFloat = 2
-    //weak var delegate: AddClassViewControlllerDelegate?
+    weak var delegate: ChangeButtonPressed?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,11 +179,15 @@ class AddClassViewController: UIViewController {
         //self.delegate?.willBeDismissed()
         let credits1 : String = creditsTextField.text!
         let credits2 : Int? = Int(credits1)
-        let class1 = Classes(name: nameTextField.text!, credits: credits2!, grade: gradeTextField.text!, semester: semesterTakenTextField.text!)
-        //ViewController.addClass(Classes: class1)
+        let class1 = Classes(name: nameTextField.text!, credits: credits2!, grade: gradeTextField.text!.uppercased(), semester: semesterTakenTextField.text!)
+        delegate?.addButtonPressed(to: class1)
         self.dismiss(animated: true)
     
 //        })
     }
 
 }
+//
+//extension ViewController: AddClassViewControllerDelegate {
+//    func addButtonPressed(name: name)
+//}

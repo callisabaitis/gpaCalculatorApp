@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ChangeButtonPressed: class {
+    func addButtonPressed(to newClass: Classes)
+    func deleteButtonPressed(to newClass: Classes)
+}
+
 class ViewController: UIViewController {
     
     let padding: CGFloat = 8
@@ -135,12 +140,8 @@ class ViewController: UIViewController {
     
     @objc func addButtonAction() {
         let viewContrtoller = AddClassViewController()
-        //viewContrtoller.delegate = self
+        viewContrtoller.delegate = self
         present(viewContrtoller, animated: true, completion: nil)
-    }
-    
-    func addClass(class1: Classes) {
-        classes[classes.count] = class1
     }
 
 }
@@ -172,7 +173,19 @@ extension ViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = IndClassViewController(classes: classes[indexPath.row])
-        //viewController.delegate = self
+        viewController.delegate = self
         present(viewController, animated: true, completion: nil)
+    }
+}
+
+extension ViewController: ChangeButtonPressed {
+    func deleteButtonPressed(to newClass: Classes) {
+        classes = classes.filter({$0.name != newClass.name})
+        classesTable.reloadData()
+    }
+    
+    func addButtonPressed(to newClass: Classes) {
+        classes.append(newClass)
+        classesTable.reloadData()
     }
 }

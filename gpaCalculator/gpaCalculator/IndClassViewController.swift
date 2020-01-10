@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol DeleteClassViewControllerDelegate: class {
-    func willBeDismissed()
-}
+//protocol DeleteClassViewControllerDelegate: class {
+//    func willBeDismissed()
+//}
 
 class IndClassViewController: UIViewController {
     
@@ -29,10 +29,12 @@ class IndClassViewController: UIViewController {
     var semesterTakenText: String
     var deleteButton: UIButton!
     
+    var thisClass: Classes!
+    
     let horizontalPadding: CGFloat = 10
     let verticalPadding: CGFloat = 20
     let border: CGFloat = 2
-    weak var delegate: DeleteClassViewControllerDelegate?
+    weak var delegate: ChangeButtonPressed?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,6 +176,7 @@ class IndClassViewController: UIViewController {
     }
     
     init(classes: Classes) {
+        self.thisClass = classes
         self.nameText = classes.name
         self.creditsText = classes.credits.description
         self.gradeText = classes.grade
@@ -187,6 +190,7 @@ class IndClassViewController: UIViewController {
     }
     
     @objc func deleteButtonPressed() {
+        delegate?.deleteButtonPressed(to: thisClass)
         self.dismiss(animated: true)
     }
     
